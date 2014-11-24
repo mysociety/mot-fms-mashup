@@ -1,0 +1,12 @@
+<h1>Postcodes</h1>
+<ul>
+    {% for postcode in object_list %}
+        <li>
+            <a href="{% url 'postcode-detail' pk=postcode.code %}">
+                {{ postcode.code }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No postcodes have been imported yet, run a mot_fms management command!.</li>
+    {% endfor %}
+</ul>

@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
-# Create your views here.
+from mot_fms.models import Postcode
+
+class PostcodeListView(ListView):
+    model = Postcode
+
+class PostcodeDetailView(DetailView):
+    model = Postcode
