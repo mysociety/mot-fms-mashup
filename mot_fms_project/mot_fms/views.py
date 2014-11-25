@@ -12,3 +12,6 @@ class PostcodeDetailView(DetailView):
 class VehicleMakeListView(ListView):
     queryset = VehicleMake.objects.order_by('make')
     context_object_name = 'make_list'
+
+class VehicleMakeDetailView(DetailView):
+    model = VehicleMake

@@ -2,7 +2,9 @@
 <ul>
     {% for make in object_list %}
         <li>
-            {{ make.make }}
+            <a href="{% url 'vehicle-make-detail' pk=make.make_id %}">
+                {{ make.make }}
+            </a>
         </li>
     {% empty %}
         <li>No makes have been imported yet, run a mot_fms management command!.</li>
