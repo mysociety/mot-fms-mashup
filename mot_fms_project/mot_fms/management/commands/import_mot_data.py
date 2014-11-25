@@ -11,15 +11,22 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
+        count = 0
         with open('data/makes.txt', 'r') as f:
             reader = csv.reader(f, delimiter='|')
             for (make_id, make) in reader:
-                VehicleMake.objects.get_or_create(pk=make_id, make=make)
+                (record, loaded) = VehicleMake.objects.get_or_create(pk=make_id, make=make)
+                if loaded:
+                    count += 1
 
+        if count > 0:
+            print "Imported %d VehicleMake records" % count
+
+        count = 0
         with open('data/vehicles_with_models.txt', 'r') as f:
             reader = csv.reader(f, delimiter='|')
             for (vehicle_id, make_id, model, first_use_date, fuel_type, passed_first_time, mileage, mot_date, postcode_str) in reader:
-                (postcode, _) = Postcode.objects.get_or_create(pk=postcode_str)
+                (postcode, _) = Postcode.objects.get_or_create(pk=postcode_str.strip())
                 default_values = {
                     'make_id': make_id,
                     'model_info': model,
@@ -30,4 +37,9 @@ class Command(BaseCommand):
                     'mot_date': datetime.strptime(mot_date, '%Y-%m-%d'),
                     'postcode': postcode,
                 }
-                Vehicle.objects.get_or_create(pk=vehicle_id, defaults=default_values)
+                (record, loaded) = Vehicle.objects.get_or_create(pk=vehicle_id, defaults=default_values)
+                if loaded:
+                    count += 1
+
+        if count > 0:
+            print "Imported %d Vehicle records" % count
