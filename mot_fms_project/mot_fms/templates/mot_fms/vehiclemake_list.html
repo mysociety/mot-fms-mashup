@@ -1,0 +1,10 @@
+<h1>Makes</h1>
+<ul>
+    {% for make in object_list %}
+        <li>
+            {{ make.make }}
+        </li>
+    {% empty %}
+        <li>No makes have been imported yet, run a mot_fms management command!.</li>
+    {% endfor %}
+</ul>
