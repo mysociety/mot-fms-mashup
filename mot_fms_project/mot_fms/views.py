@@ -20,6 +20,11 @@ class VehicleMakeDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(VehicleMakeDetailView, self).get_context_data(**kwargs)
-        context['count'] = Vehicle.objects.filter(make_id=self.get_object().make_id).count
-        context['total_vehicles'] = Vehicle.objects.count
+        context['count'] = Vehicle.objects.filter(make_id=self.get_object().make_id).count()
+        context['total_vehicles'] = Vehicle.objects.count()
+        context['first_time_passes'] = Vehicle.objects.filter(make_id=self.get_object().make_id).filter(passed_first_time=True).count()
+        if context['first_time_passes'] > 0:
+            context['pass_rate'] = int(round(float(context['first_time_passes']) / float(context['count']) * 100))
+        else:
+            context['pass_rate'] = 0
         return context

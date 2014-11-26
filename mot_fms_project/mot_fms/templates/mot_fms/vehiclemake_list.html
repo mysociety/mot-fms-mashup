@@ -3,7 +3,7 @@
     {% for make in object_list %}
         <li>
             <a href="{% url 'mot_fms:vehicle-make-detail' pk=make.make_id %}">
-                {{ make.make }}
+                {{ make.make }} ({{ make.num_vehicles}})
             </a>
         </li>
     {% empty %}
