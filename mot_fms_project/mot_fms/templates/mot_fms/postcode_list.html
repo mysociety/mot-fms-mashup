@@ -2,7 +2,7 @@
 <ul>
     {% for postcode in object_list %}
         <li>
-            <a href="{% url 'postcode-detail' pk=postcode.code %}">
+            <a href="{% url 'mot_fms:postcode-detail' pk=postcode.code %}">
                 {{ postcode.code }}
             </a>
         </li>
