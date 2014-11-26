@@ -5,7 +5,7 @@ from mot_fms.models import Postcode, VehicleMake, Vehicle
 from django.db.models import Count
 
 class PostcodeListView(ListView):
-    model = Postcode
+    queryset = Postcode.objects.order_by('code')
 
 class PostcodeDetailView(DetailView):
     model = Postcode
